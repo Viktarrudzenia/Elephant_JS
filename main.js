@@ -107,7 +107,7 @@ function drawFillBucket(x, y, sym) {
                 currentX + 1 < canvas[1].length - 1
             ) {
                 stackFillBucket.push([currentX + 1, currentY]);
-                reachLeft = true;
+                reachRight = true;
             }
         }
 
@@ -128,16 +128,27 @@ function drawFillBucket(x, y, sym) {
                     stackFillBucket.push([currentX - 1, currentY]);
                     reachLeft = true;
                 }
+            } else {
+                if (canvas[currentY][currentX - 1] !== currentSymbolToChange && currentX - 1 > 0) {
+                    reachLeft = false;
+                }
             }
 
             if (!reachRight) {
                 if (
                     canvas[currentY][currentX + 1] !== undefined &&
                     canvas[currentY][currentX + 1] === currentSymbolToChange &&
-                    currentX + 1 < canvas[1].length - 2
+                    currentX + 1 < canvas[1].length - 1
                 ) {
                     stackFillBucket.push([currentX + 1, currentY]);
-                    reachLeft = true;
+                    reachRight = true;
+                }
+            } else {
+                if (
+                    canvas[currentY][currentX + 1] === currentSymbolToChange &&
+                    currentX + 1 < canvas[1].length - 1
+                ) {
+                    reachRight = false;
                 }
             }
 
